@@ -8,10 +8,15 @@ const gameState = {
 	history: [],
 }
 
+const queryString = window.location.search
+const urlParams = new URLSearchParams(queryString)
+const urlSeq = urlParams.get("seq")
+
 function init() {
-	gameState.originalSequence = theSequence
-	gameState.goalSequence = theSequence.slice().reverse()
-	setSequence(theSequence)
+	const sequence = urlSeq ? urlSeq.split(",") : theSequence
+	gameState.originalSequence = sequence
+	gameState.goalSequence = sequence.slice().reverse()
+	setSequence(sequence)
 }
 init()
 
