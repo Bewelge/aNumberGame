@@ -13,7 +13,7 @@ const urlParams = new URLSearchParams(queryString)
 const urlSeq = urlParams.get("seq")
 
 function init() {
-	const sequence = urlSeq ? urlSeq.split(",") : theSequence
+	const sequence = urlSeq.split(",").map(v => parseInt(v)) // ? urlSeq.split(",") : theSequence
 	gameState.originalSequence = sequence
 	gameState.goalSequence = sequence.slice().reverse()
 	setSequence(sequence)
@@ -79,7 +79,6 @@ function createNumberDiv(num) {
 	const numEl = div("number")
 	numEl.innerHTML = num
 	let splitCont = getSplitButtons(num)
-	// numEl.onclick = () => {}
 
 	numCont.appendChild(numEl)
 	numCont.appendChild(splitCont)
