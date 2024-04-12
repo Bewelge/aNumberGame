@@ -1,6 +1,7 @@
 const theSequence = [7, 5, 3]
 const seqContainer = document.getElementById("seqContainer")
 const historyContainer = document.getElementById("history")
+const goalContainer = document.getElementById("goal")
 
 const gameState = {
 	moves: 0,
@@ -37,7 +38,7 @@ function setUI(sequence) {
 			const newNum = next + num
 			const canBeMerged = !sequence.includes(newNum) && newNum <= max
 			const mergeButton = div("merge")
-			mergeButton.innerHTML = "+"
+			mergeButton.innerHTML = `→${num + next}←`
 			if (!canBeMerged) {
 				mergeButton.classList.add("disabled")
 			} else {
@@ -51,6 +52,16 @@ function setUI(sequence) {
 			seqContainer.appendChild(mergeButton)
 		}
 	})
+	goalContainer.innerHTML =
+		"<div>Original sequence: " +
+		gameState.originalSequence
+			.map(num => "<div class='number' >" + num + "</div>")
+			.join("") +
+		"</div><div>Target sequence: " +
+		gameState.goalSequence
+			.map(num => "<div class='number' >" + num + "</div>")
+			.join("") +
+		"</div>"
 	historyContainer.innerHTML =
 		"Moves: " +
 		(gameState.history.length - 1) +
@@ -87,7 +98,7 @@ function getSplitButtons(number) {
 	}
 	legiblePairs.forEach(([num0, num1]) => {
 		const pairDiv = div("pair")
-		pairDiv.innerHTML = `${num0},${num1}`
+		pairDiv.innerHTML = `↙↘<br>${num0},${num1}`
 		pairDiv.onclick = () => {
 			let currentIndex = gameState.sequence.indexOf(num0 + num1)
 			const newSequence = gameState.sequence.slice(0)
