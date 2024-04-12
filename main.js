@@ -13,7 +13,9 @@ const urlParams = new URLSearchParams(queryString)
 const urlSeq = urlParams.get("seq")
 
 function init() {
-	const sequence = urlSeq.split(",").map(v => parseInt(v)) // ? urlSeq.split(",") : theSequence
+	const sequence = urlSeq
+		? urlSeq.split(",").map(v => parseInt(v))
+		: theSequence
 	gameState.originalSequence = sequence
 	gameState.goalSequence = sequence.slice().reverse()
 	setSequence(sequence)
